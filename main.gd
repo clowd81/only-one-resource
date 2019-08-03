@@ -1,7 +1,8 @@
-extends RigidBody2D
+extends Node2D
 
 # Declare member variables here. Examples:
-export var velocity = Vector2(0, -400)
+# var a = 2
+# var b = "text"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -9,7 +10,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-    global_position += velocity * delta
-    
-    if global_position.y < 0:
-        queue_free()
+    var player = get_child(0)
+    var UI = get_child(1)
+    var scoreTextBox = UI.get_child(0)
+    scoreTextBox.text = "SCORE: " + str(player.score)

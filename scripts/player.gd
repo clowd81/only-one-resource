@@ -2,10 +2,13 @@ extends Area2D
 
 const BULLET = preload("res://objects/player_bullet.tscn")
 
+const MOVE_COST = 1
+const SHOOT_COST = 25
+
 # Declare member variables here. Examples:
 export var speed = 400  # How fast the player will move (pixels/sec).
 export var score = 1000
-export var cycle_time = 0.5
+export var cycle_time = 0.25
 var screen_size  # Size of the game window.
 var cycling = 0.0
 
@@ -19,11 +22,12 @@ func shoot():
         var bullet = BULLET.instance()
         bullet.global_position = global_position
         get_parent().add_child(bullet)
-    pass
+        score -= SHOOT_COST
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-    cycling -= delta
+    if cycling != 0.0:
+        cycling -= delta
     
     var velocity = Vector2()  # The player's movement vector.
     if Input.is_key_pressed(KEY_D):
@@ -43,6 +47,10 @@ func _process(delta):
         
     if velocity.length() > 0:
         velocity = velocity.normalized() * speed
+    
+    # Movement costs score!
+    if velocity.x != 0 || velocity.y != 0:
+        score -= MOVE_COST
     
     position += velocity * delta
     position.x = clamp(position.x, 16, screen_size.x-16)
