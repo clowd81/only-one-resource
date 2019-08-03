@@ -1,22 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://objects/Player.gd" type="Script" id=1]
-[ext_resource path="res://assets/player.png" type="Texture" id=2]
-
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 16.0966, 15.8739 )
+[ext_resource path="res://objects/player.tscn" type="PackedScene" id=1]
 
 [node name="Node2D" type="Node2D"]
 
-[node name="Player" type="Area2D" parent="."]
-position = Vector2( 440.167, 322.895 )
-script = ExtResource( 1 )
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="Sprite" type="Sprite" parent="Player"]
-texture = ExtResource( 2 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
-shape = SubResource( 1 )
+[node name="Player" parent="." instance=ExtResource( 1 )]
+position = Vector2( 553.695, 568.244 )
+cycle_time = 0.25
