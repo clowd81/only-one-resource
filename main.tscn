@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://main.gd" type="Script" id=1]
 [ext_resource path="res://objects/player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://UI.tscn" type="PackedScene" id=3]
+[ext_resource path="res://objects/Enemy.tscn" type="PackedScene" id=4]
 
 [node name="Root" type="Node2D"]
 script = ExtResource( 1 )
@@ -11,3 +12,27 @@ script = ExtResource( 1 )
 position = Vector2( 553.695, 568.244 )
 
 [node name="UI" parent="." instance=ExtResource( 3 )]
+
+[node name="Enemy" parent="." instance=ExtResource( 4 )]
+position = Vector2( 555.784, 485.398 )
+
+[node name="Enemy2" parent="." instance=ExtResource( 4 )]
+position = Vector2( 374.701, 413.316 )
+
+[node name="Enemy3" parent="." instance=ExtResource( 4 )]
+position = Vector2( 888.062, 434.413 )
+
+[node name="Enemy4" parent="." instance=ExtResource( 4 )]
+position = Vector2( 705.221, 350.025 )
+
+[node name="Enemy5" parent="." instance=ExtResource( 4 )]
+position = Vector2( 191.859, 297.282 )
+
+[node name="Enemy6" parent="." instance=ExtResource( 4 )]
+position = Vector2( 504.799, 323.654 )
+
+[node name="Enemy7" parent="." instance=ExtResource( 4 )]
+position = Vector2( 654.236, 168.942 )
+
+[node name="Enemy8" parent="." instance=ExtResource( 4 )]
+position = Vector2( 372.942, 209.378 )

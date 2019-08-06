@@ -21,6 +21,8 @@ func shoot():
         cycling = cycle_time
         var bullet = BULLET.instance()
         bullet.global_position = global_position
+        bullet.global_position.y -= 16
+        bullet.ownerNode = self
         get_parent().add_child(bullet)
         score -= SHOOT_COST
 
