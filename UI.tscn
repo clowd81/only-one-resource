@@ -5,7 +5,13 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="Score" type="RichTextLabel" parent="."]
-margin_left = 856.451
-margin_top = 14.4838
-margin_right = 989.451
-margin_bottom = 54.4838
+margin_left = 847.451
+margin_top = 15.4838
+margin_right = 980.451
+margin_bottom = 55.4838
+
+[node name="Combo" type="RichTextLabel" parent="."]
+margin_left = 840.451
+margin_top = 55.4838
+margin_right = 973.451
+margin_bottom = 95.4838

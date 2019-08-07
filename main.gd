@@ -13,4 +13,7 @@ func _process(delta):
     var player = get_child(0)
     var UI = get_child(1)
     var scoreTextBox = UI.get_child(0)
+    var comboTextBox = UI.get_child(1)
     scoreTextBox.text = "SCORE: " + str(player.score)
+    comboTextBox.text = "COMBO: " + str(player.comboCount)
+    

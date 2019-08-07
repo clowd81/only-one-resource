@@ -8,28 +8,59 @@ const SHOOT_COST = 25
 # Declare member variables here. Examples:
 export var speed = 400  # How fast the player will move (pixels/sec).
 export var score = 1000
+export var comboCount = 0
 export var cycle_time = 0.25
 var screen_size  # Size of the game window.
 var cycling = 0.0
+var shot_count = 1
+var comboDecayTime = 4
+var comboCurDecay = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
     screen_size = get_viewport_rect().size
-    
+
+func comboInc(var amt = 1):
+    comboCurDecay = 0;
+    comboCount += amt
+
 func shoot():
     if cycling <= 0.0:
         cycling = cycle_time
         var bullet = BULLET.instance()
         bullet.global_position = global_position
-        bullet.global_position.y -= 16
+        bullet.global_position.y -= 42
         bullet.ownerNode = self
         get_parent().add_child(bullet)
         score -= SHOOT_COST
+        if shot_count >= 2:
+        	bullet = BULLET.instance()
+        	bullet.global_position = global_position
+        	bullet.global_position.y -= 12
+        	bullet.global_position.x -= 29
+        	bullet.ownerNode = self
+        	get_parent().add_child(bullet)
+        	score -= SHOOT_COST
+        if shot_count >= 3:
+        	bullet = BULLET.instance()
+        	bullet.global_position = global_position
+        	bullet.global_position.y -= 12
+        	bullet.global_position.x += 29
+        	bullet.ownerNode = self
+        	get_parent().add_child(bullet)
+        	score -= SHOOT_COST
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
     if cycling != 0.0:
         cycling -= delta
+    
+    if comboCurDecay >= comboDecayTime:
+        comboCount = 0
+        comboCurDecay = 0
+    else:
+        comboCurDecay += get_process_delta_time()
     
     var velocity = Vector2()  # The player's movement vector.
     if Input.is_key_pressed(KEY_D):

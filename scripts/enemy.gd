@@ -2,6 +2,7 @@ extends Area2D
 
 # Declare member variables here. Examples:
 export var points = 50
+export var comboVal = 1
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -16,6 +17,7 @@ func _on_Enemy_area_entered(area):
         
         if "ownerNode" in area:
             if "score" in area.ownerNode:
-                area.ownerNode.score += points
+                area.ownerNode.comboInc(comboVal)
+                area.ownerNode.score += points * area.ownerNode.comboCount
                 
         queue_free()
