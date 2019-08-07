@@ -4,6 +4,7 @@ extends Area2D
 export var points = 50
 export var comboVal = 1
 
+const FLOATER = preload("res://objects/point_floater.tscn")
 # Called when the node enters the scene tree for the first time.
 func _ready():
     pass # Replace with function body.
@@ -18,6 +19,11 @@ func _on_Enemy_area_entered(area):
         if "ownerNode" in area:
             if "score" in area.ownerNode:
                 area.ownerNode.comboInc(comboVal)
-                area.ownerNode.score += points * area.ownerNode.comboCount
+                var finalpoints = points * area.ownerNode.comboCount
+                area.ownerNode.score += finalpoints
+                var pointFloater = FLOATER.instance()
+                pointFloater.global_position = global_position
+                get_parent().add_child(pointFloater)
+                pointFloater.createFloater(finalpoints)
                 
         queue_free()
