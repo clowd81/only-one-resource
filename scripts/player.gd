@@ -12,9 +12,9 @@ export var comboCount = 0
 export var cycle_time = 0.25
 var screen_size  # Size of the game window.
 var cycling = 0.0
-var shot_count = 1
-var comboDecayTime = 4
-var comboCurDecay = 0
+var shot_count = 2
+export var comboDecayTime = 4
+export var comboCurDecay = 4
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -24,32 +24,27 @@ func comboInc(var amt = 1):
     comboCurDecay = 0;
     comboCount += amt
 
+func spawn_bullet(x, y):
+    var bullet = BULLET.instance()
+    bullet.global_position = global_position
+    bullet.global_position.x += x
+    bullet.global_position.y += y
+    bullet.ownerNode = self
+    get_parent().add_child(bullet)
+
 func shoot():
     if cycling <= 0.0:
         cycling = cycle_time
-        var bullet = BULLET.instance()
-        bullet.global_position = global_position
-        bullet.global_position.y -= 42
-        bullet.ownerNode = self
-        get_parent().add_child(bullet)
+        spawn_bullet(0, -42)
         score -= SHOOT_COST
+        
         if shot_count >= 2:
-        	bullet = BULLET.instance()
-        	bullet.global_position = global_position
-        	bullet.global_position.y -= 12
-        	bullet.global_position.x -= 29
-        	bullet.ownerNode = self
-        	get_parent().add_child(bullet)
-        	score -= SHOOT_COST
+            spawn_bullet(-12, -29)
+            score -= SHOOT_COST
+            
         if shot_count >= 3:
-        	bullet = BULLET.instance()
-        	bullet.global_position = global_position
-        	bullet.global_position.y -= 12
-        	bullet.global_position.x += 29
-        	bullet.ownerNode = self
-        	get_parent().add_child(bullet)
-        	score -= SHOOT_COST
-
+            spawn_bullet(-12, 29)
+            score -= SHOOT_COST
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -58,7 +53,6 @@ func _process(delta):
     
     if comboCurDecay >= comboDecayTime:
         comboCount = 0
-        comboCurDecay = 0
     else:
         comboCurDecay += get_process_delta_time()
     

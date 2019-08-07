@@ -5,15 +5,17 @@ extends Node2D
 # var b = "text"
 
 # Called when the node enters the scene tree for the first time.
-func _ready():
-    pass # Replace with function body.
+#func _ready():
+#    pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-    var player = get_child(0)
-    var UI = get_child(1)
-    var scoreTextBox = UI.get_child(0)
-    var comboTextBox = UI.get_child(1)
+    var player = $Player
+    var scoreTextBox = $UI.find_node("Score", true, false)
+    var comboTextBox = $UI.find_node("Combo", true, false)
+    var comboTimeBar = $UI.find_node("ComboTime", true, false)
     scoreTextBox.text = "SCORE: " + str(player.score)
     comboTextBox.text = "COMBO: " + str(player.comboCount)
+    comboTimeBar.set_percent_visible(false)
+    comboTimeBar.value = float(player.comboDecayTime) - float(player.comboCurDecay)
     
